@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:{company}-{department_name}",
+ "autoname": "format: {company}-{department_name}",
  "creation": "2024-11-24 22:34:17.249836",
  "default_view": "List",
  "doctype": "DocType",
@@ -20,14 +20,16 @@
    "in_list_view": 1,
    "label": "Company",
    "options": "Companys",
-   "reqd": 1
+   "reqd": 1,
+   "set_only_once": 1
   },
   {
    "fieldname": "department_name",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Department Name",
-   "reqd": 1
+   "reqd": 1,
+   "unique": 1
   },
   {
    "fieldname": "number_of_employees",
@@ -44,7 +46,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-25 00:33:58.972819",
+ "modified": "2024-11-25 23:30:20.377812",
  "modified_by": "Administrator",
  "module": "Employee Managment System",
  "name": "Departments",

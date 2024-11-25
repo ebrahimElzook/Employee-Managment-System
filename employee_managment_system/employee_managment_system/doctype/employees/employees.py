@@ -5,24 +5,6 @@ import frappe
 from frappe.model.document import Document
 
 class Employees(Document):
-	def onload(self):
-		if self.is_new() :
-			old_company = None
-			old_department = None
-
-		else :
-			old_company=self.company
-			old_department=self.department
-			company_count = frappe.db.count("Employees",filters={"company":old_company})
-			department_count = frappe.db.count("Employees",filters={"department":old_department})
-			# save to db because cant save in validate
-			frappe.db.set_value('Companys', old_company, {
-    'number_of_employees': company_count
-})
-			frappe.db.set_value('Departments', old_department, {
-    'number_of_employees': department_count
-})
-			frappe.db.commit()
 	def before_save(self):
 		if  (not self.mobile_number.startswith('0'))  or len(self.mobile_number) != 11:
 			frappe.throw("The mobile number is not correct")
@@ -37,8 +19,7 @@ class Employees(Document):
 			new_company = self.company
 
             # Update the number of employees for the old company
-			if self.old_company:
-				self.update_company_count(self.old_company)
+			self.update_company_count(self.old_company)
 
             # Update the number of employees for the new company
 			if new_company:
@@ -63,14 +44,20 @@ class Employees(Document):
 
 
 	def update_company_count(self, company):
-			employee_count = frappe.db.count("Employees", filters={"company": company})
-			frappe.db.set_value("Companys", company, "number_of_employees", int(employee_count))
-			frappe.db.commit()
+			try:
+				employee_count = frappe.db.count("Employees", filters={"company": company})
+				frappe.db.set_value("Companys", company, "number_of_employees", int(employee_count))
+				frappe.db.commit()
+			except:
+				frappe.throw("can't calculate number of employees for company")
 
 	def update_department_count(self, department):
-			employee_count = frappe.db.count("Employees", filters={"department": department})
-			frappe.db.set_value("Departments", department, "number_of_employees", int(employee_count))
-			frappe.db.commit()
+			try:
+				employee_count = frappe.db.count("Employees", filters={"department": department})
+				frappe.db.set_value("Departments", department, "number_of_employees", int(employee_count))
+				frappe.db.commit()
+			except:
+				frappe.throw("can't calculate number of employees for department")
 
 		
 
