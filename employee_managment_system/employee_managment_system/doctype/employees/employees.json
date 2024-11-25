@@ -60,7 +60,7 @@
   },
   {
    "fieldname": "mobile_number",
-   "fieldtype": "Int",
+   "fieldtype": "Data",
    "label": "Mobile Number"
   },
   {
@@ -93,7 +93,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-25 00:32:46.848222",
+ "modified": "2024-11-25 21:14:52.993120",
  "modified_by": "Administrator",
  "module": "Employee Managment System",
  "name": "Employees",
