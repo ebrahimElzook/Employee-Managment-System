@@ -50,7 +50,7 @@ def edit_project(project_name,company=None,department=None,description=None,star
     return "project edit failed"   
    
 @frappe.whitelist()
-def delete_employee(project_name):
+def delete_project(project_name):
    try :
        frappe.delete_doc("New Projects",project_name)
        return "project delete success"   
